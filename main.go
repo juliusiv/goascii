@@ -31,7 +31,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 func handleUploadImage(c echo.Context) error {
 	multipart_file, err := c.FormFile("file")
 	if err != nil {
-		return err
+		return c.Render(http.StatusOK, "conversion-error.html", "There was an issue processing your file")
 	}
 
 	file, err := multipart_file.Open()
@@ -56,13 +56,11 @@ func handleUploadImage(c echo.Context) error {
 	if err != nil {
 		var error_text = "Error converting to ASCII"
 		if err == image.ErrFormat {
-			error_text = "Unsupported image format"
+			error_text = "Unsupported image format; only PNG and JPG are supported"
 		}
 
 		return c.Render(http.StatusOK, "conversion-error.html", error_text)
 	}
-
-	ascii_converter.PrintAscii(ascii)
 
 	data := map[string][][]string{
 		"Ascii": ascii,

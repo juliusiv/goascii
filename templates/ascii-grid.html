@@ -1,5 +1,5 @@
-<pre class="leading-[6px] pt-2">
+<pre class="leading-[6px] p-8 text-xs border border-slate-800 whitespace-pre-line">
   {{ range $row := .Ascii }}
-    {{ range $col := $row }}<span class="m-0 p-0 leading-[0px] align-top">{{$col}}</span>{{ end }}<br />
+    {{ range $col := $row }}<span class="m-0 p-0 leading-[0px] align-top">{{$col}}</span>{{ end }}
   {{ end }}
 </pre>
