@@ -25,9 +25,14 @@ func ConvertToAscii(file *os.File) ([][]string, error) {
 	}
 
 	gray := colorToGray(src)
-	out, _ := os.Create("gray.png")
-	defer out.Close()
-	png.Encode(out, gray)
+	tmpfile, err := os.CreateTemp("", fmt.Sprintf("gray-*"))
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	defer tmpfile.Close()
+
+	png.Encode(tmpfile, gray)
 
 	num_arr := imageToArray(gray)
 
