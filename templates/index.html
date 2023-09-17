@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./public/build.css" rel="stylesheet" />
   <script src="https://unpkg.com/htmx.org@1.9.5" integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO" crossorigin="anonymous"></script>
 
 </head>
 <body class="p-8">
   <div class="flex flex-col items-center">
-    <h1 class="text-3xl text-center mb-12 border-b-2 border-black">ASCII Converter</h1>
+    <h1 class="text-2xl text-center mb-12 border-b-2 border-black">ASCII Converter</h1>
     
     <div class="mb-16">
       {{ template "file-upload.html" . }}
