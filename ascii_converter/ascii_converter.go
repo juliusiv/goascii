@@ -13,7 +13,7 @@ import (
 var colors = []string{" ", "-", "o", "0", "#"} // From lightest to darkest
 var percent = 0.01
 
-func ConvertToAscii(file *os.File) [][]string {
+func ConvertToAscii(file *os.File) ([][]string, error) {
 	// Be sure we start decoding from the beginning of the file, otherwise decoding will start at an
 	// arbitrary position and won't understand the file.
 	file.Seek(0, 0)
@@ -21,7 +21,7 @@ func ConvertToAscii(file *os.File) [][]string {
 	// We just have to be sure all the image packages we want are imported.
 	src, _, err := image.Decode(file)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	gray := colorToGray(src)
@@ -53,7 +53,7 @@ func ConvertToAscii(file *os.File) [][]string {
 		}
 	}
 
-	return ascii
+	return ascii, nil
 }
 
 func PrintAscii(ascii [][]string) {

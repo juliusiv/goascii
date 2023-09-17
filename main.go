@@ -4,6 +4,7 @@ import (
 	"embed"
 	"fmt"
 	"html/template"
+	"image"
 	"io"
 	"net/http"
 	"os"
@@ -53,7 +54,16 @@ func handleUploadImage(c echo.Context) error {
 		return err
 	}
 
-	ascii := ascii_converter.ConvertToAscii(tmpfile)
+	ascii, err := ascii_converter.ConvertToAscii(tmpfile)
+	if err != nil {
+		var error_text = "Error converting to ASCII"
+		if err == image.ErrFormat {
+			error_text = "Unsupported image format"
+		}
+
+		return c.Render(http.StatusOK, "conversion-error.html", error_text)
+	}
+
 	ascii_converter.PrintAscii(ascii)
 
 	data := map[string][][]string{
@@ -80,10 +90,7 @@ func main() {
 	e.Static("/css", "css")
 
 	e.GET("/", func(c echo.Context) error {
-		data := map[string]string{
-			"Region": os.Getenv("FLY_REGION"),
-		}
-		return c.Render(http.StatusOK, "index.html", data)
+		return c.Render(http.StatusOK, "index.html", nil)
 	})
 
 	e.POST("/upload-image", handleUploadImage)

@@ -4,16 +4,11 @@
   hx-post="/upload-image"
   hx-target="#ascii-container"
   hx-swap="innerHTML"
+  class="flex flex-col"
   >
-  <input type="file" name="file">
-  <button>
-      Upload
-  </button>
-  <progress id="progress" value="0" max="100"></progress>
-</form>
+  <input type="file" name="file" class="pb-5">
 
-<script>
-  htmx.on("#form", "htmx:xhr:progress", function(evt) {
-    htmx.find("#progress").setAttribute("value", evt.detail.loaded/evt.detail.total * 100)
-  });
-</script>
+  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    Convert
+  </button>
+</form>
