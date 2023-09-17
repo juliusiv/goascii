@@ -36,13 +36,13 @@ func handleUploadImage(c echo.Context) error {
 
 	file, err := multipart_file.Open()
 	if err != nil {
-		return err
+		return c.Render(http.StatusOK, "conversion-error.html", "There was an issue processing your file")
 	}
 	defer file.Close()
 
-	tmpfile, err := os.CreateTemp("tmp", fmt.Sprintf("upload-*-%s", multipart_file.Filename))
+	tmpfile, err := os.CreateTemp("", fmt.Sprintf("upload-*-%s", multipart_file.Filename))
 	if err != nil {
-		return err
+		return c.Render(http.StatusOK, "conversion-error.html", "There was an issue processing your file")
 	}
 	defer tmpfile.Close()
 	defer os.Remove(tmpfile.Name())

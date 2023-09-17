@@ -4,12 +4,13 @@ app = "go-ascii"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
-mounts = []
-processes = []
 
 [build]
   builder = "paketobuildpacks/builder:base"
   buildpacks = ["gcr.io/paketo-buildpacks/go"]
+
+[[build.args]]
+  BP_KEEP_FILES = "public/*"
 
 [env]
   PORT = "8080"
@@ -32,3 +33,4 @@ processes = []
   [[services.ports]]
     handlers = ["tls", "http"]
     port = 443
+
