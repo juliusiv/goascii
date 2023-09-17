@@ -22,7 +22,7 @@ go run main.go
 
 Build the CSS:
 ```
-tailwindcss -i css/input.css -o css/build.css --minify
+tailwindcss -i index.css -o static/build.css --minify
 ```
 
 Deploy to Fly.io:

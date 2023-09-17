@@ -18,8 +18,6 @@ import (
 var (
 	//go:embed templates/*
 	resources embed.FS
-	//go:embed css/build.css
-	css embed.FS
 )
 
 type Template struct {
@@ -87,7 +85,7 @@ func main() {
 
 	e.Use(middleware.Logger())
 
-	e.Static("/css", "css")
+	e.Static("/public", "public")
 
 	e.GET("/", func(c echo.Context) error {
 		return c.Render(http.StatusOK, "index.html", nil)
