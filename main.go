@@ -18,6 +18,8 @@ import (
 var (
 	//go:embed templates/*
 	resources embed.FS
+	//go:embed public/build.css
+	css embed.FS
 )
 
 type Template struct {
