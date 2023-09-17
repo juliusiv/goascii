@@ -25,12 +25,13 @@ func ConvertToAscii(file *os.File) ([][]string, error) {
 	}
 
 	gray := colorToGray(src)
-	tmpfile, err := os.CreateTemp("", fmt.Sprintf("gray-*"))
+	tmpfile, err := os.CreateTemp("", "gray-*")
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
 	}
 	defer tmpfile.Close()
+	defer os.Remove(tmpfile.Name())
 
 	png.Encode(tmpfile, gray)
 
@@ -38,7 +39,6 @@ func ConvertToAscii(file *os.File) ([][]string, error) {
 
 	min, max := findMinMax(num_arr)
 	rng := max - min
-	fmt.Println("max", max, "min", min)
 	ascii := [][]string{}
 
 	for y := 0; y < len(num_arr); y++ {
@@ -95,7 +95,6 @@ func imageToArray(img *image.Gray) [][]uint32 {
 
 	new_h, new_w := h/sqr_size, w/sqr_size
 	img_arr := make2D(new_h, new_w) // Size of int array
-	fmt.Println("h", new_h, "w", new_w)
 
 	// Create the grayscale image pixel by pixel.
 	for y := 0; y < h-1; y++ {
