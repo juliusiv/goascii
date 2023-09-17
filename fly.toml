@@ -9,7 +9,7 @@ kill_timeout = 5
   builder = "paketobuildpacks/builder:base"
   buildpacks = ["gcr.io/paketo-buildpacks/go"]
 
-[[build.args]]
+[build.args]
   BP_KEEP_FILES = "public/*"
 
 [env]
